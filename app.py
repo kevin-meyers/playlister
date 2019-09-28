@@ -2,12 +2,16 @@ from flask import Flask, render_template
 
 app = Flask(__name__)
 
-@app.route('/')
-@app.route('/playlists')
-def index():
-    ''' See all playlists. '''
+playlists = [
+    {'title': 'cat_videos', 'description': 'Cats being cats'},
+    {'title': '80\'s music', 'description': 'Don\'t stop believing!'}
+]
 
-    return render_template('home.html', msg='Flask is cool!!')
+@app.route('/')
+def playlists_index():
+    ''' Show all playlists. '''
+
+    return render_template('playlists_index.html', playlists=playlists)
 
 @app.route('/playlists/new')
 def new():
