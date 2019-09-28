@@ -1,17 +1,18 @@
 from flask import Flask, render_template
+from pymongo import MongoClient
+
+client = MongoClient()
+db = client.Playlister
+playlists = db.playlists
 
 app = Flask(__name__)
 
-playlists = [
-    {'title': 'cat_videos', 'description': 'Cats being cats'},
-    {'title': '80\'s music', 'description': 'Don\'t stop believing!'}
-]
 
 @app.route('/')
 def playlists_index():
     ''' Show all playlists. '''
 
-    return render_template('playlists_index.html', playlists=playlists)
+    return render_template('playlists_index.html', playlists=playlists.find())
 
 @app.route('/playlists/new')
 def new():
