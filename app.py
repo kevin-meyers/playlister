@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for
 from pymongo import MongoClient
 
+from bson.objectid import ObjectId
+
 client = MongoClient()
 db = client.Playlister
 playlists = db.playlists
@@ -25,17 +27,18 @@ def create():
 
     playlist = {
         'title': request.form.get('title'),
-        'description': request.form.get('description')
+        'description': request.form.get('description'),
         'videos': request.form.get('videos').split()
     }
-    playlists.insert_one(playlist)
-    return redirect(url_for('playlists_index'))turn redirect(url_for('playlists_index'))
+    playlist_id = playlists.insert_one(playlist).instered_id
+    return redirect(url_for('playlists_show', playlist_id=playlist_id))
 
-@app.route('/playlists/:id')
-def show():
+@app.route('/playlists/<playlist_id>')
+def show(playlist_id):
     ''' See one playlist. '''
-
-    pass
+    
+    playlist = playlists.find_one({'_id': ObjectId(playlist_id)})
+    return render_template('playlists_show.html', playlist=playlist))
 
 @app.route('/playlists/:id/edit')
 def edit():
