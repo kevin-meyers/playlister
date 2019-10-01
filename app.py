@@ -16,6 +16,8 @@ app = Flask(__name__)
 @app.route('/')
 def playlists_index():
     ''' Show all playlists. '''
+    
+    return 'KILL ME PLEASE'
 
     return render_template('playlists_index.html', playlists=playlists.find())
 
@@ -38,7 +40,7 @@ def create():
     return redirect(url_for('playlists_show', playlist_id=playlist_id))
 
 @app.route('/playlists/<playlist_id>')
-def show(playlist_id):
+def playlists_show(playlist_id):
     ''' See one playlist. '''
     
     playlist = playlists.find_one({'_id': ObjectId(playlist_id)})
@@ -46,14 +48,14 @@ def show(playlist_id):
 
 
 @app.route('/playlists/<playlist_id>/edit')
-def edit(playlist_id):
+def playlists_edit(playlist_id):
     ''' See an edit playlist form. '''
 
     playlist = playlists.find_one({'_id': ObjectId(playlist_id)})
     return render_template('playlists_edit.html', playlist=playlist)
 
 @app.route('/playlists/<playlist_id>', methods=['POST'])
-def update():
+def playlists_update():
     ''' Update a playlist. '''
 
     updated_playlist = {
