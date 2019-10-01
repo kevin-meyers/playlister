@@ -65,11 +65,12 @@ def update():
 
     return redirect(url_for('playlists_show', playlist_id=playlist_id))
 
-@app.route('/playlists/:id', methods=['DELETE'])
+@app.route('/playlists/<playlist_id>/delete', methods=['POST'])
 def destroy():
     ''' Delete a playlist. '''
 
-    pass
+    playlists.delete_one({'_id': ObjectId(playlist_id)})
+    return redirect(url_for('playlists_index'))
 
 
 if __name__ == '__main__':
