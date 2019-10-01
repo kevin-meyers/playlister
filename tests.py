@@ -1,6 +1,5 @@
 # tests.py
 
-from unittest import TestCase, main as unittest_main
 from app import app
 
 from unittest import TestCase, main as unittest_main, mock
