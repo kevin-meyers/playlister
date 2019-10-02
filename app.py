@@ -17,8 +17,6 @@ app = Flask(__name__)
 def playlists_index():
     ''' Show all playlists. '''
     
-    return 'KILL ME PLEASE'
-
     return render_template('playlists_index.html', playlists=playlists.find())
 
 @app.route('/playlists/new')
@@ -79,4 +77,4 @@ def destroy():
 
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=os.environ.get('PORT', 5000)))
+    app.run(debug=True, host='0.0.0.0', port=os.environ.get('PORT', 5000))
